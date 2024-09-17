@@ -9,8 +9,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+
 
 @Entity //Identifica que essa classe tem uma tabela no Banco de Dados
 @Table(name =  User.TABLE_NAME) //Passa o nome da tabela. Se n tiver o @Table, ele vai pegar o nome da Classe como nome
@@ -63,6 +62,29 @@ public class User {
         this.password = password;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public @NotNull(groups = CreateUser.class) @NotEmpty(groups = CreateUser.class) @Size(groups = CreateUser.class, min = 2, max = 100) String getUsername() {
+        return username;
+    }
+
+    public void setUsername(@NotNull(groups = CreateUser.class) @NotEmpty(groups = CreateUser.class) @Size(groups = CreateUser.class, min = 2, max = 100) String username) {
+        this.username = username;
+    }
+
+    public @NotNull(groups = {CreateUser.class, UpdateUser.class}) @NotEmpty(groups = {CreateUser.class, UpdateUser.class}) @Size(groups = CreateUser.class, min = 8, max = 60) String getPassword() {
+        return password;
+    }
+
+    public void setPassword(@NotNull(groups = {CreateUser.class, UpdateUser.class}) @NotEmpty(groups = {CreateUser.class, UpdateUser.class}) @Size(groups = CreateUser.class, min = 8, max = 60) String password) {
+        this.password = password;
+    }
 
     @Override
     public int hashCode() {
