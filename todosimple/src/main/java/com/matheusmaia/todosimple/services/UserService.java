@@ -2,7 +2,6 @@ package com.matheusmaia.todosimple.services;
 
 
 import com.matheusmaia.todosimple.model.User;
-import com.matheusmaia.todosimple.repositores.TaskRepository;
 import com.matheusmaia.todosimple.repositores.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,15 +15,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository; // Eh um jeito de instanciar a classe e usar dos metodos dela
 
-    @Autowired
-    private TaskRepository taskRepository;
+
 
 
 
     public User findById(Long id) {
         Optional<User> user = this.userRepository.findById(id);
         return user.orElseThrow /*Retorna se tiver preenchido, com infos*/(() -> new RuntimeException(
-                "Usuário não encontrado! Id" + id  + ", Tipo " + User.class.getName()
+                "Usuário não encontrado! Id " + id  + ", Tipo " + User.class.getName()
         ));
     }
 
@@ -32,7 +30,6 @@ public class UserService {
     public User create (User obj){
         obj.setId(null);
         obj = this.userRepository.save(obj);
-        this.taskRepository.saveAll(obj.getTasks());
         return obj;
     }
     @Transactional

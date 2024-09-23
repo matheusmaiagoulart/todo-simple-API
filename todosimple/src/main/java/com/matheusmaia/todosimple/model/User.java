@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +11,6 @@ import java.util.List;
 
 @Entity //Identifica que essa classe tem uma tabela no Banco de Dados
 @Table(name =  User.TABLE_NAME) //Passa o nome da tabela. Se n tiver o @Table, ele vai pegar o nome da Classe como nome
-@Getter
-@Setter
 public class User {
 
     public interface CreateUser {}
@@ -70,7 +66,10 @@ public class User {
         this.id = id;
     }
 
-    public @NotNull(groups = CreateUser.class) @NotEmpty(groups = CreateUser.class) @Size(groups = CreateUser.class, min = 2, max = 100) String getUsername() {
+    @NotNull(groups = CreateUser.class)
+    @NotEmpty(groups = CreateUser.class)
+    @Size(groups = CreateUser.class, min = 2, max = 100)
+    public String getUsername() {
         return username;
     }
 
